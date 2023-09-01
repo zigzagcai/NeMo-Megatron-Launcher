@@ -1002,9 +1002,9 @@ class NeMoEvaluation(NeMoStage):
             "adapter_gpt3": self._nemo_code_path
             / "examples/nlp/language_modeling/tuning/megatron_gpt_adapter_eval.py",
             "gptnext": self._nemo_code_path
-            / "examples/nlp/language_modeling/tuning/megatron_gpt_eval.py",
+            / "examples/nlp/language_modeling/megatron_gpt_eval.py",
             "llama2": self._nemo_code_path
-            / "examples/nlp/language_modeling/tuning/megatron_gpt_eval.py",
+            / "examples/nlp/language_modeling/megatron_gpt_eval.py",
         }
         return model_type_to_code_path[model_type]
 
