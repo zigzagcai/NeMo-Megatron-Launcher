@@ -1,3 +1,22 @@
+run:
+  name: eval_${.task_name}_${.model_train_name}
+  time_limit: "04:00:00"
+  dependency: "singleton"
+  model_train_name: t5_220m
+  task_name: "squad"
+  adapter_learning_dir: ${base_results_dir}/${.model_train_name}/adapter_learning_squad # assume prompt learning was on squad task
+  results_dir: ${base_results_dir}/${.model_train_name}/adapter_learning_${.task_name}_eval
+
+trainer:
+  devices: 1
+  num_nodes: 1
+  accelerator: gpu
+  logger: False # logger provided by exp_manager
+  precision: 32 # 16, 32, or bf16
+  enable_checkpointing: False
+  use_distributed_sampler: False
+  log_every_n_steps: 10
+  
 inference:
   greedy: False # Whether or not to use sampling ; use greedy decoding otherwise
   top_k: 0  # The number of highest probability vocabulary tokens to keep for top-k-filtering.
@@ -11,16 +30,12 @@ inference:
   compute_logprob: False  # a flag used to compute logprob of all the input text, a very special case of running inference, default False
   end_strings: ["</s>"]  # generation will stop when one of these tokens is generated
 
-trainer:
-  devices: 1
-  num_nodes: 1
-  accelerator: gpu
-  logger: False # logger provided by exp_manager
-  precision: 32 # 16, 32, or bf16
 
-tensor_model_parallel_size: -1
-pipeline_model_parallel_size: -1
-pipeline_model_parallel_split_rank: -1 # used for encoder and decoder model (0 for others)
+tensor_model_parallel_size: 1
+pipeline_model_parallel_size: 1
+pipeline_model_parallel_split_rank: ${divide_floor:${.pipeline_model_parallel_size}, 2} # used for encoder and decoder model
+model_parallel_size: ${multiply:${.tensor_model_parallel_size}, ${.pipeline_model_parallel_size}}
+language_model_path: ${base_results_dir}/${evaluation.run.model_train_name}/convert_nemo/results/megatron_t5.nemo  # path to a pretrained t5 nemo file
 gpt_model_file: null  # GPT nemo file path
 checkpoint_dir: null # checkpoint file dir. This is used to load the PTL checkpoint generated during the GPT training
 checkpoint_name: null # PTL checkpoint file name, only used for PTL checkpoint loading
