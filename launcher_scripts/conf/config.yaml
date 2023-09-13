@@ -27,10 +27,10 @@ stages:
   - evaluation
   - export
 
-cluster_type: bcm  # bcm or bcp. If bcm, it must match - cluster above.
+cluster_type: interactive  # bcm or bcp. If bcm, it must match - cluster above.
 launcher_scripts_path: ???  # Path to NeMo Megatron Launch scripts, should ends with /launcher_scripts
 data_dir: ${launcher_scripts_path}/data  # Location to store and read the data.
-base_results_dir: ${launcher_scripts_path}/results  # Location to store the results, checkpoints and logs.
+base_results_dir: /home/pagaray/code/NeMo-Megatron-Launcher-results  # Location to store the results, checkpoints and logs.
 container_mounts: # List of additional paths to mount to container. They will be mounted to same path.
   - null
 container: nvcr.io/ea-bignlp/nemofw-training:23.07-py3
