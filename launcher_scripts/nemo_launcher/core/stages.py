@@ -418,7 +418,7 @@ class NemoMegatronStage:
 
     @property
     def _nemo_code_path(self) -> Path:
-        return Path("/opt/NeMo")
+        return Path("/mnt/petrelfs/caizheng/dev/NeMo")
 
     @property
     def _data_dir(self) -> Path:

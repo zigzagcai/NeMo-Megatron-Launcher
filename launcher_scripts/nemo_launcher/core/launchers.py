@@ -290,11 +290,11 @@ class BCPLauncher(Launcher):
             lines += ["", "# setup"] + setup
 
         # Add pause_and_prime_dns_connection to command groups on BCP
-        launcher_scripts_path = Path("/opt/NeMo-Megatron-Launcher/launcher_scripts")  # Hard code path on BCP
+        launcher_scripts_path = Path("/mnt/petrelfs/caizheng/dev/NeMo-Megatron-Launcher/launcher_scripts")  # Hard code path on BCP
         pause_and_prime_dns_connection_command = (
             f"python3 -u {launcher_scripts_path / 'nemo_launcher/collections/pause_and_prime_dns_connections.py'}"
         )
-        _nemo_code_path = "/opt/NeMo"
+        _nemo_code_path = "/mnt/petrelfs/caizheng/dev/NeMo"
         for ind in range(len(command_groups)):
             # TODO: Find a better way to insert pause_and_prime_dns_connection_command
             if _nemo_code_path in command_groups[ind]:
@@ -638,8 +638,9 @@ def _make_sbatch_string(
     # commandline (this will run the function and args specified in the file provided as argument)
     # We pass --output and --error here, because the SBATCH command doesn't work as expected with a filename pattern
     stderr_flags = [] if stderr_to_stdout else ["--error", stderr]
-    container_flags = ["--container-image", container_image] if container_image else []
-    container_flags += ["--container-mounts", container_mounts] if container_mounts else []
+    #container_flags = ["--container-image", container_image] if container_image else []
+    #container_flags += ["--container-mounts", container_mounts] if container_mounts else []
+    container_flags = []
     if srun_args is None:
         srun_args = []
 
