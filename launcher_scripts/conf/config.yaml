@@ -47,7 +47,8 @@ env_vars:
   TRANSFORMER_OFFLINE: 1
   NCCL_AVOID_RECORD_STREAMS: 1
   NEMO_LAUNCHER_MEMORY_MEASURE: 1
-  NCCL_IB_HCA: "mlx5_2:1,mlx5_3:1,mlx5_4:1,mlx5_5:1"
+  NCCL_SOCKET_IFNAME: "bond0"
+  NCCL_IB_HCA: "mlx5_2,mlx5_3,mlx5_4,mlx5_5"
   # NCCL_IB_HCA: "mlx5_0:1,mlx5_2:1,mlx5_6:1,mlx5_8:1"
   # NCCL_IB_HCA: "mlx5_0:1,mlx5_6:1"
   # NCCL_IB_HCA: "mlx5_0:1"
