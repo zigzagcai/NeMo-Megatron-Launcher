@@ -41,7 +41,7 @@ env_vars:
   NCCL_TOPO_FILE: null # Should be a path to an XML file describing the topology
   UCX_IB_PCI_RELAXED_ORDERING: null # Needed to improve Azure performance
   NCCL_IB_PCI_RELAXED_ORDERING: null # Needed to improve Azure performance
-  NCCL_IB_TIMEOUT: null # InfiniBand Verbs Timeout. Set to 22 for Azure
+  NCCL_IB_TIMEOUT: 22 # InfiniBand Verbs Timeout. Set to 22 for Azure
   NCCL_DEBUG: INFO # Logging level for NCCL. Set to "INFO" for debug information
   NCCL_PROTO: null # Protocol NCCL will use. Set to "simple" for AWS
   TRANSFORMER_OFFLINE: 1
@@ -49,9 +49,7 @@ env_vars:
   NEMO_LAUNCHER_MEMORY_MEASURE: 1
   NCCL_SOCKET_IFNAME: "bond0"
   NCCL_IB_HCA: "mlx5_2,mlx5_3,mlx5_4,mlx5_5"
-  # NCCL_IB_HCA: "mlx5_0:1,mlx5_2:1,mlx5_6:1,mlx5_8:1"
-  # NCCL_IB_HCA: "mlx5_0:1,mlx5_6:1"
-  # NCCL_IB_HCA: "mlx5_0:1"
+  NCCL_IB_GID_INDEX: 3
 
 # GPU Mapping
 numa_mapping:
