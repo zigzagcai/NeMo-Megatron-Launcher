@@ -1,15 +1,15 @@
 defaults:
   - _self_
   - cluster: bcm  # Leave it as bcm even if using bcp. It will be ignored for bcp.
-  - data_preparation: gpt3/download_gpt3_pile
-  - training: gpt3/13b
-  - conversion: gpt3/convert_gpt3
+  - data_preparation: llama/download_llama_pile
+  - training: llama/llama2_1b
+  - conversion: llama/convert_llama
   - fine_tuning: null
   - prompt_learning: null
   - adapter_learning: null
   - ia3_learning: null
-  - evaluation: gpt3/evaluate_all
-  - export: gpt3/export_gpt3
+  - evaluation: llama/evaluate_all
+  - export: null
   - override hydra/job_logging: stdout
 
 hydra:
@@ -22,18 +22,14 @@ debug: False
 stages:
   # - data_preparation
   - training
-    #  - conversion
-    #- evaluation
+  # - conversion
+  # - evaluation
   # - export
 
 cluster_type: bcm  # bcm or bcp. If bcm, it must match - cluster above.
 launcher_scripts_path: /mnt/petrelfs/caizheng/dev/NeMo-Megatron-Launcher/launcher_scripts  # Path to NeMo Megatron Launch scripts, should ends with /launcher_scripts
 data_dir: ${launcher_scripts_path}/data  # Location to store and read the data.
 base_results_dir: ${launcher_scripts_path}/results  # Location to store the results, checkpoints and logs.
-#container_mounts: # List of additional paths to mount to container. They will be mounted to same path.
-#  - null
-#container: /mnt/petrelfs/caizheng/dev/NeMo-Megatron-Launcher/ea-bignlp+nemofw-training+23.04.1-py3.sqsh
-#container: nvcr.io/ea-bignlp/nemofw-training:23.04.1-py3
 
 wandb_api_key_file: null  # File where the w&B api key is stored. Key must be on the first line.
 
@@ -42,7 +38,7 @@ env_vars:
   UCX_IB_PCI_RELAXED_ORDERING: null # Needed to improve Azure performance
   NCCL_IB_PCI_RELAXED_ORDERING: null # Needed to improve Azure performance
   NCCL_IB_TIMEOUT: 22 # InfiniBand Verbs Timeout. Set to 22 for Azure
-  NCCL_DEBUG: INFO # Logging level for NCCL. Set to "INFO" for debug information
+  # NCCL_DEBUG: INFO # Logging level for NCCL. Set to "INFO" for debug information
   NCCL_PROTO: null # Protocol NCCL will use. Set to "simple" for AWS
   TRANSFORMER_OFFLINE: 1
   NCCL_AVOID_RECORD_STREAMS: 1

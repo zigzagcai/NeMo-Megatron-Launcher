@@ -1,10 +1,10 @@
 run:
   name: llama2_7b
   results_dir: ${base_results_dir}/${.name}
-  time_limit: "0-01:30:00"
+  time_limit: "24:00:00"
   dependency: "singleton"
 trainer:
-  num_nodes: 16
+  num_nodes: 4
   devices: 8
   accelerator: gpu
   precision: bf16
@@ -24,12 +24,12 @@ exp_manager:
   explicit_log_dir: ${training.run.results_dir}/results
   exp_dir: null
   name: megatron_llama
-  create_wandb_logger: true
+  create_wandb_logger: False
   wandb_logger_kwargs:
     project: nemo_llama_pretrain
     name: ${training.run.name}
-  resume_if_exists: false
-  resume_ignore_no_checkpoint: true
+  resume_if_exists: True
+  resume_ignore_no_checkpoint: True
   create_checkpoint_callback: True
   checkpoint_callback_params:
     monitor: val_loss
@@ -129,6 +129,13 @@ model:
   use_emha: False
   ub_tp_comm_overlap: False
   use_flash_attention: true
+  nsys_profile:
+    enabled: True
+    trace: [nvtx,cuda]
+    start_step: 10  # Global batch to start profiling
+    end_step: 12 # Global batch to end profiling
+    ranks: [0，8，16，24] # Global rank IDs to profile
+    gen_shape: False # Generate model and kernel details including input shapes
   optim:
     name: distributed_fused_adam
     lr: 1e-4
@@ -159,62 +166,3 @@ model:
     data_prefix:
     - .0333
     - ${data_dir}/my-llama_00_text_document
-    - .0333
-    - ${data_dir}/my-llama_01_text_document
-    - .0333
-    - ${data_dir}/my-llama_02_text_document
-    - .0333
-    - ${data_dir}/my-llama_03_text_document
-    - .0333
-    - ${data_dir}/my-llama_04_text_document
-    - .0333
-    - ${data_dir}/my-llama_05_text_document
-    - .0333
-    - ${data_dir}/my-llama_06_text_document
-    - .0333
-    - ${data_dir}/my-llama_07_text_document
-    - .0333
-    - ${data_dir}/my-llama_08_text_document
-    - .0333
-    - ${data_dir}/my-llama_09_text_document
-    - .0333
-    - ${data_dir}/my-llama_10_text_document
-    - .0333
-    - ${data_dir}/my-llama_11_text_document
-    - .0333
-    - ${data_dir}/my-llama_12_text_document
-    - .0333
-    - ${data_dir}/my-llama_13_text_document
-    - .0333
-    - ${data_dir}/my-llama_14_text_document
-    - .0333
-    - ${data_dir}/my-llama_15_text_document
-    - .0333
-    - ${data_dir}/my-llama_16_text_document
-    - .0333
-    - ${data_dir}/my-llama_17_text_document
-    - .0333
-    - ${data_dir}/my-llama_18_text_document
-    - .0333
-    - ${data_dir}/my-llama_19_text_document
-    - .0333
-    - ${data_dir}/my-llama_20_text_document
-    - .0333
-    - ${data_dir}/my-llama_21_text_document
-    - .0333
-    - ${data_dir}/my-llama_22_text_document
-    - .0333
-    - ${data_dir}/my-llama_23_text_document
-    - .0333
-    - ${data_dir}/my-llama_24_text_document
-    - .0333
-    - ${data_dir}/my-llama_25_text_document
-    - .0333
-    - ${data_dir}/my-llama_26_text_document
-    - .0333
-    - ${data_dir}/my-llama_27_text_document
-    - .0333
-    - ${data_dir}/my-llama_28_text_document
-    - .0334
-    - ${data_dir}/my-llama_29_text_document
-
