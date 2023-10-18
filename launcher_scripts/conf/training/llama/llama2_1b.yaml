@@ -30,7 +30,7 @@ exp_manager:
   wandb_logger_kwargs:
     project: nemo_llama_pretrain
     name: ${training.run.name}
-  resume_if_exists: false # resume if there exists checkpoint
+  resume_if_exists: true # resume if there exists checkpoint
   resume_ignore_no_checkpoint: true
   create_checkpoint_callback: true # either set enable_checkpointing=true or create_checkpoint_callback=true
   checkpoint_callback_params:
@@ -173,7 +173,7 @@ model:
       min_lr: 3e-5
 
   data:
-    use_internlm_dl: false
+    use_internlm_dl: true
 
     # Dataloader common params
     seq_length: ${training.model.encoder_seq_length}
