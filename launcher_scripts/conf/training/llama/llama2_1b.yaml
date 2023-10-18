@@ -5,7 +5,7 @@ run:
   dependency: "singleton"
 
 trainer:
-  num_nodes: 4 # number of nodes for training
+  num_nodes: 16 # number of nodes for training
   devices: 8 # number of gpus per node
   accelerator: gpu
   precision: bf16
@@ -180,7 +180,7 @@ model:
     num_workers: 2
 
     # Dataloader params only for internlm
-    train_folder: /mnt/petrelfs/caizheng/dataset
+    train_folder: /mnt/petrelfs/share_data/llm_data/0715_llama_tokenized_refined_real/train
     min_length: 50
     pack_sample_into_one: true
 
