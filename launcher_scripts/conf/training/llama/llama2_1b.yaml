@@ -154,7 +154,10 @@ model:
   
   # Flash attention
   use_flash_attention: true # Use flash attention in self-attention module, this config does nothing when transformer_engine=True
-  
+
+  # Garbage collection
+  gc_interval: 0 # gc_interval=0 represents automatic gc; else gc is done manually by the batch step interval of `gc_interval`
+
   optim:
     name: distributed_fused_adam
     lr: 3e-4
