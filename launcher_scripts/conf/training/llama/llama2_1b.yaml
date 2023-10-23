@@ -30,10 +30,12 @@ exp_manager:
   wandb_logger_kwargs:
     project: nemo_llama_pretrain
     name: ${training.run.name}
-  resume_if_exists: true # resume if there exists checkpoint
-  resume_ignore_no_checkpoint: true
+  resume_if_exists: true # resume training if checkpoints already exist
+  resume_ignore_no_checkpoint: true # to start training with no existing checkpoints
   create_checkpoint_callback: true # either set enable_checkpointing=true or create_checkpoint_callback=true
   checkpoint_callback_params:
+    every_n_train_steps: 1000 # save checkpoints every n global steps
+    every_n_epochs: null
     monitor: val_loss
     save_top_k: 10
     mode: min
