@@ -41,7 +41,7 @@ exp_manager:
     mode: min
     always_save_nemo: false # saves nemo file during validation, not implemented for model parallel
     save_nemo_on_train_end: false # not recommended when training large models on clusters with short time limits
-    filename: 'megatron_llama--{val_loss:.2f}-{step}-{consumed_samples}'
+    filename: 'megatron_llama-{step}-{consumed_samples}'
     model_parallel_size: ${multiply:${training.model.tensor_model_parallel_size}, ${training.model.pipeline_model_parallel_size}}
   log_step_timing: true
   step_timing_kwargs:
