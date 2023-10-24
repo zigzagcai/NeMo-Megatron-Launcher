@@ -200,3 +200,8 @@ model:
     index_mapping_dir: null # path to save index mapping .npy files, by default will save in the same location as data_prefix
     data_prefix:
     - ${data_dir}/my-llama_00_text_document
+
+# set trainer.num_nodes=1 and trainer.devices=1 when convert checkpoint from nemo-megatron to hf
+convert:
+  input_nemo_ckpt: null
+  output_hf_ckpt: null
