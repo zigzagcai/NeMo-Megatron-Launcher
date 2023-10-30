@@ -55,7 +55,7 @@ model:
   
   # Parallelism: tps=1, pps=1
   mcore_gpt: true # use GPTModel from megatron.core
-  micro_batch_size: 2 # limited by GPU memory
+  micro_batch_size: 1 # limited by GPU memory
   global_batch_size: 1024 # will use more micro batches to reach global batch size
   rampup_batch_size: null # Should be a list of 3 values: [<start_batch_size>, <batch_size_increment>, <rampup_samples>]
   tensor_model_parallel_size: 4 # intra-layer model parallelism
@@ -139,7 +139,7 @@ model:
   activations_checkpoint_layers_per_pipeline: null
   
   # Sequence parallel
-  sequence_parallel: false
+  sequence_parallel: true
 
   # Transformer engine
   # fp8 training is currently not supported in the improved models
