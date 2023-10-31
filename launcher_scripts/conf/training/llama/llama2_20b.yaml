@@ -51,8 +51,6 @@ exp_manager:
   gpu_num: ${multiply:${training.trainer.num_nodes}, ${training.trainer.devices}}
 
 model:
-  valid_micro_num: 8 # todo
-  
   # Parallelism: tps=1, pps=1
   mcore_gpt: true # use GPTModel from megatron.core
   micro_batch_size: 1 # limited by GPU memory
